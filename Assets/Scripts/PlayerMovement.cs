@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]private float speed = 2f;
+    [SerializeField]private float speed = 12f;
+    [SerializeField] private float jumpHieght = 25f;
+    private LayerMask groundLayer;
     private Rigidbody2D body;
     private Animator anim;
-    private bool isGrounded;
 
 
 
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -33,28 +35,34 @@ public class PlayerMovement : MonoBehaviour
 
         body.linearVelocity = new Vector2(horizontalInput * speed * Time.deltaTime, body.linearVelocity.y);
 
-        if(Input.GetKey(KeyCode.Space))
+        if(Input.GetKey(KeyCode.Space) && isGrounded() == true)
         {
             Jump();
         }
 
         anim.SetBool("run", horizontalInput != 0);
+        anim.SetTrigger("jump");
+        anim.SetBool("isGrounded", isGrounded());
     }
 
     private void Jump()
     {
-        body.linearVelocity = new Vector2(body.linearVelocity.x, speed);
-        isGrounded = false;
+        body.linearVelocity = new Vector2(body.linearVelocity.x, speed * jumpHieght * Time.deltaTime);
+        isGrounded() = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.collider.tag == "Ground")
         {
-            isGrounded = true;
-        }
+            isGrounded() = true;
+        }     
+    }
 
-        
+    private bool isGrounded()
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
     }
 
 }
+// 4:44
