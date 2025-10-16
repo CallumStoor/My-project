@@ -1,16 +1,15 @@
-using System.Data.Common;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] private int startingHealth;
+    public int currentHealth { get; private set; }
     private Animator anim;
     private bool dead;
-    public int currentHealth { get; private set; }
 
     private void Awake()
     {
-        startingHealth = currentHealth;
+        currentHealth = startingHealth;
         anim = GetComponent<Animator>();
     }
 
