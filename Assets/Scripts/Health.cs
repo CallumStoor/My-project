@@ -42,6 +42,11 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void GainHealth(int _Amount)
+    {
+        currentHealth += _Amount;
+    }
+
     private IEnumerable Invinciblity()
     {
         Physics2D.IgnoreLayerCollision(10, 11, true);
