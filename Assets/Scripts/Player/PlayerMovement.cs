@@ -97,14 +97,4 @@ public class PlayerMovement : MonoBehaviour
     {
         return horizontalInput == 0 && isGrounded() && !onWall();
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag == "Finish")
-        {
-
-            gameManager.Invoke("EndGame", 3);
-
-        }
-    }
 }
