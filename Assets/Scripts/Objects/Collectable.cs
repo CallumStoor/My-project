@@ -10,7 +10,7 @@ public class Collectable : MonoBehaviour
         {
             Destroy(gameObject);
             collision.GetComponent<SpriteRenderer>().color = Color.green;
-            collision.GetComponent<Health>().GainHealth(Mathf.Clamp(GainHealthAmount, 1, 3) / 10);
+            collision.GetComponent<Health>().AddHealth(Mathf.Clamp(GainHealthAmount, 1, 3) / 10);
             Invoke("_Wait", 1);
             collision.GetComponent<SpriteRenderer>().color = Color.white;
         }

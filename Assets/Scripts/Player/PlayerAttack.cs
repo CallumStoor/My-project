@@ -3,9 +3,9 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private float atttackCooldown;
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private GameObject[] fireballs;
+    [SerializeField] private LayerMask enemyLayer;
     private Animator anim;
+    private BoxCollider2D _boxCollider;
     private PlayerMovement playerMovement;
     private float cooldownTimer = Mathf.Infinity;
 
@@ -13,36 +13,51 @@ public class PlayerAttack : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         playerMovement = GetComponent<PlayerMovement>();
+        _boxCollider = GetComponent<BoxCollider2D>();
     }
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButton(0) && cooldownTimer > atttackCooldown && playerMovement.canAttack())
+            if (Input.GetMouseButtonDown(0) && cooldownTimer > atttackCooldown && playerMovement.canAttack())
             {
-                Attack();
+                anim.SetTrigger("attack");
             }
         }
         cooldownTimer += Time.deltaTime;
     }
 
-    private void Attack()
+    private void Attack() // called with animation event
     {
-        anim.SetTrigger("attack");
         cooldownTimer = 0;
 
-        fireballs[FindFireball()].transform.position = firePoint.position;
-        fireballs[FindFireball()].GetComponent<Projectile>().SetDirection(Mathf.Sign(transform.localScale.x));
+        Health target = attackHit();
+        if (target != null)
+        {
+            target.TakeDamage(1);
+            Debug.Log("Enemy Hit");
+        }
     }
 
-    private int FindFireball()
+    private Health attackHit()
     {
-        for (int i = 0; i < fireballs.Length; i++)
+        RaycastHit2D hit = Physics2D.BoxCast(
+        _boxCollider.bounds.center,
+        _boxCollider.bounds.size,
+        0,
+        new Vector2(Mathf.Sign(transform.localScale.x), 0),
+        1f,
+        enemyLayer
+    );
+
+        if (hit.collider != null)
         {
-            if (!fireballs[i].activeInHierarchy)
-                return i;
+            Debug.DrawLine(_boxCollider.bounds.center, hit.point, Color.red, 0.1f);
+            return hit.collider.GetComponent<Health>();
         }
-        return 0;
+
+        return null;
     }
+
 }
