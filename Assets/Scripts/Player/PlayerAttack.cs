@@ -48,16 +48,9 @@ public class PlayerAttack : MonoBehaviour
         0,
         new Vector2(Mathf.Sign(transform.localScale.x), 0),
         1f,
-        enemyLayer
-    );
+        enemyLayer);
 
-        if (hit.collider != null)
-        {
-            Debug.DrawLine(_boxCollider.bounds.center, hit.point, Color.red, 0.1f);
-            return hit.collider.GetComponent<Health>();
-        }
-
-        return null;
+        return hit.collider != null ? hit.transform.GetComponent<Health>() : null;
     }
 
 }
