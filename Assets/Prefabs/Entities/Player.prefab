@@ -84,7 +84,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -617899983
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 5
   m_Sprite: {fileID: 4723107735738678597, guid: 56144e03d02ac0b4fb58dd515962f6cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -199,10 +199,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3563cf5400f0d614ea398920a80bb58b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atttackCooldown: 0.5
+  attackRange: 2.27
+  colliderDistance: 1.31
+  attackCooldown: 0.5
   enemyLayer:
     serializedVersion: 2
     m_Bits: 2048
+  _boxCollider: {fileID: 848050205973276397}
 --- !u!114 &7537090294163663119
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpPower;
     [SerializeField] private LayerMask groundLayer;
+    // Refreances
     public Rigidbody2D body { get; private set; }
     private Animator anim;
     private BoxCollider2D boxCollider;
@@ -54,8 +55,8 @@ public class PlayerMovement : MonoBehaviour
         return raycastHit.collider != null;
     }
 
-    public bool canAttack()
+    public bool canAirAttack()
     {
-        return horizontalInput == 0 && isGrounded();
+        return isGrounded();
     }
 }

@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private Health health; 
-    public string nextLevel; // Add variables at the top of your scripts
+    private Health health;
+    public bool isAlive { get; private set; } = true;
 
 
     private void Awake()
@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     {
         if(health.currentHealth <= 0)
         {
+            isAlive = false;
             Invoke("ReloadLevel", 2);
         }
         if(Input.GetKey(KeyCode.Escape))
@@ -30,10 +31,14 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+    public void NextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 
     public void EndGame()
     {
-        StartScene(nextLevel);
+        //exit game logic here
     }
     public void Quit()
     {

@@ -7,15 +7,12 @@ public class Health : MonoBehaviour
     [SerializeField] private float startingHealth;
     public float currentHealth { get; private set; }
     private Animator anim;
-    private bool dead;
+    public bool dead { get; private set; }
 
     [Header("iFrames")]
     [SerializeField] private float iFramesDuration;
     [SerializeField] private int numberOfFlashes;
     private SpriteRenderer spriteRend;
-
-    [Header("Components")]
-    [SerializeField] private Behaviour[] components;
     private bool invulnerable;
 
     private void Awake()
@@ -40,10 +37,6 @@ public class Health : MonoBehaviour
             {
                 anim.SetTrigger("die");
 
-                //Deactivate all attached component classes
-                foreach (Behaviour component in components)
-                    component.enabled = false;
-
                 dead = true;
             }
         }
@@ -52,6 +45,7 @@ public class Health : MonoBehaviour
     {
         currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth);
     }
+    public void Deactivate() { Destroy(gameObject); }
     private IEnumerator Invunerability()
     {
         invulnerable = true;

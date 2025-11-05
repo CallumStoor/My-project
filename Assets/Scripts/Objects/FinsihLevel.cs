@@ -16,7 +16,7 @@ public class FinsihLevel : MonoBehaviour
         {
 
             spriteRenderer.color = Color.green;
-            gameManager.Invoke("EndGame", 1);
+            gameManager.Invoke("NextScene", 1);
 
         }
     }

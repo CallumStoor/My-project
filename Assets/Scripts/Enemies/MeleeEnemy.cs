@@ -1,9 +1,8 @@
 using UnityEngine;
 
-public class EnemyPatrol : MonoBehaviour
+public class MeleeEnemy : MonoBehaviour
 {
     [Header("Enemy Stats")]
-    [SerializeField] float speed = 2f;
     [SerializeField] private float attackcooldown = 1f;
     [SerializeField] private int damage = 10;
     [SerializeField] private float range = 1f;
@@ -13,27 +12,28 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField] private BoxCollider2D boxCollider;
     private float cooldownTimer = Mathf.Infinity;
     // References
-    private Rigidbody body; 
     private Animator anim;
     private Health playerHealth;
+    private Health enemyHealth;
+    private GameManager gameManager;
 
     private void Start()
     {
-        body = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        enemyHealth = GetComponent<Health>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>(); 
     }
 
     void Update()
     {
         cooldownTimer += Time.deltaTime;
 
-        if(cooldownTimer >= attackcooldown)
+        if(cooldownTimer >= attackcooldown && gameManager.isAlive && !enemyHealth.dead)
         {
             if (isPlayerInSight())
             {
                 cooldownTimer = 0;
                 anim.SetTrigger("attack");
-                // Attack logic here
                 Debug.Log("Enemy attacks for " + damage + " damage!");
             }
         }
@@ -44,7 +44,7 @@ public class EnemyPatrol : MonoBehaviour
         RaycastHit2D raycastHit = Physics2D.BoxCast(
             boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance, 
             new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
-            0, Vector2.left, 
+            0, new Vector2(0, 0),
             1f, 
             LayerMask.GetMask("Player"));
 
