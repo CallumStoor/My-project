@@ -219,9 +219,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   startingHealth: 3
-  iFramesDuration: 0
-  numberOfFlashes: 3
-  components: []
+  iFramesDuration: 0.75
+  numberOfFlashes: 2
 --- !u!95 &5869908479334433193
 Animator:
   serializedVersion: 7

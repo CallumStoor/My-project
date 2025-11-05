@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class FinsihLevel : MonoBehaviour
 {
+    [SerializeField] private Sprite newSprite;
     private GameManager gameManager;
     private SpriteRenderer spriteRenderer;
 
@@ -15,7 +16,7 @@ public class FinsihLevel : MonoBehaviour
         if (collision.tag == "Player")
         {
 
-            spriteRenderer.color = Color.green;
+            spriteRenderer.sprite = newSprite;
             gameManager.Invoke("NextScene", 1);
 
         }

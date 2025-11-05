@@ -786,7 +786,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 31.29071, y: -35.1102}
+  m_AnchoredPosition: {x: 31.290771, y: -35.11023}
   m_SizeDelta: {x: 465.0437, y: 46.4347}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &741529325
@@ -906,7 +906,6 @@ MonoBehaviour:
   startingHealth: 2
   iFramesDuration: 0
   numberOfFlashes: 0
-  components: []
 --- !u!50 &834052499
 Rigidbody2D:
   serializedVersion: 5
@@ -1613,7 +1612,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 31.29071, y: -35.1102}
+  m_AnchoredPosition: {x: 31.290771, y: -35.11023}
   m_SizeDelta: {x: 465.0437, y: 46.4347}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1788358651
