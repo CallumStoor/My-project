@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5732289393319092478}
   - component: {fileID: 7537090294163663119}
   - component: {fileID: 5869908479334433193}
+  - component: {fileID: 3293330639301766633}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -218,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c34d0cfb6746f640b464515debc934e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  startingHealth: 3
+  startingHealth: 4
   iFramesDuration: 0.75
   numberOfFlashes: 2
 --- !u!95 &5869908479334433193
@@ -243,6 +244,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3293330639301766633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2323049276949808057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57ba1e791c731ee4188e9a68ecfb8504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerThrow
+  angle: 2.5
+  force: 350
+  damage: 1
+  attackCooldown: 1.5
+  throwingStar: {fileID: 0}
+  firePoint: {fileID: 252677818786807283}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!1 &5624071657133137024
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +293,7 @@ Transform:
   m_GameObject: {fileID: 5624071657133137024}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.644, y: -0.606, z: 0}
+  m_LocalPosition: {x: 0.977, y: 0.288, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

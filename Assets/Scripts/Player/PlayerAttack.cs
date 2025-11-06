@@ -8,12 +8,12 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float attackCooldown;
     [Header("Set Components")]
     [SerializeField] private LayerMask enemyLayer;
-    [SerializeField ]private BoxCollider2D _boxCollider;
+    [SerializeField] private BoxCollider2D _boxCollider;
     // Refreances
+    private float cooldownTimer = Mathf.Infinity;
     private Animator anim;
     private PlayerMovement playerMovement;
     private float airAttackModifier = 0;
-    private float cooldownTimer = Mathf.Infinity;
 
     private void Awake()
     {

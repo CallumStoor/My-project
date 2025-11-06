@@ -28,7 +28,7 @@ public class MeleeEnemy : MonoBehaviour
     {
         cooldownTimer += Time.deltaTime;
 
-        if(cooldownTimer >= attackcooldown && gameManager.isAlive && !enemyHealth.dead)
+        if(cooldownTimer >= attackcooldown && gameManager.isAlive && enemyHealth.currentHealth <= 0)
         {
             if (isPlayerInSight())
             {

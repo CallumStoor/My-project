@@ -7,7 +7,7 @@ public class Health : MonoBehaviour
     [SerializeField] private float startingHealth;
     public float currentHealth { get; private set; }
     private Animator anim;
-    public bool dead { get; private set; }
+    private bool dead;
 
     [Header("iFrames")]
     [SerializeField] private float iFramesDuration;
@@ -35,6 +35,8 @@ public class Health : MonoBehaviour
         {
             if (!dead)
             {
+                gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                gameObject.GetComponent<BoxCollider2D>().enabled = false;
                 anim.SetTrigger("die");
 
                 dead = true;
@@ -45,7 +47,7 @@ public class Health : MonoBehaviour
     {
         currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth);
     }
-    public void Deactivate() { Destroy(gameObject); }
+    public void DestroyObject() { Destroy(gameObject); }
     private IEnumerator Invunerability()
     {
         invulnerable = true;
