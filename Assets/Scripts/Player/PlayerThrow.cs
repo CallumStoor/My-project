@@ -30,6 +30,8 @@ public class PlayerThrow : MonoBehaviour
 
         cooldownTimer += Time.deltaTime;
 
+        firePoint.LookAt(Input.mousePosition);
+
         if (Input.GetMouseButtonDown(1) && cooldownTimer > attackCooldown)
         {
             ThrowStar();
