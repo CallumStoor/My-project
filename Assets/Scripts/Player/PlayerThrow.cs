@@ -1,27 +1,28 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerThrow : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private float angle = 2;
-    [SerializeField] private int force = 10;
+    [SerializeField] private int force = 1;
     [SerializeField] private float attackCooldown;
 
     [Header("Components")]
     [SerializeField] private GameObject throwingStar;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private LayerMask enemyLayer;
     // reference 
+    private Animator starAnimator;
+    private float horizontalInput; 
+    public float cooldownTimer { get; private set; } = Mathf.Infinity;
     private Rigidbody2D rb;
-    private float horizontalInput;
-    private float cooldownTimer = Mathf.Infinity;
+    public ThrowingStar throwScript { get; private set; }
+    private Vector3 shootDirection;
 
 
     private void Awake()
     {
         rb = throwingStar.GetComponent<Rigidbody2D>();
+        throwScript = throwingStar.GetComponent<ThrowingStar>();
+        starAnimator = throwingStar.GetComponent<Animator>();
     }
 
     private void Update()
@@ -30,21 +31,47 @@ public class PlayerThrow : MonoBehaviour
 
         cooldownTimer += Time.deltaTime;
 
-        firePoint.LookAt(Input.mousePosition);
+        shootDirection = (Input.mousePosition - Camera.main.WorldToScreenPoint(firePoint.position)).normalized;
 
         if (Input.GetMouseButtonDown(1) && cooldownTimer > attackCooldown)
         {
+            ResetStar();
             ThrowStar();
+        }
+        if(Input.GetKeyDown(KeyCode.E) && throwScript.isThrown == true)
+        {
+            Debug.Log(throwScript.isThrown);
+            TeleportToStar();
         }
     }
 
     private void ThrowStar()
     {
+        throwScript.isThrown = true;
+        // ensure no leftover velocity
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+
+        // apply an impulse in the aim direction (changes to ForceMode2D.Impulse for immediate throw)
+        rb.AddForce( new Vector2(shootDirection.x * force, shootDirection.y * force), ForceMode2D.Impulse);
+
+        cooldownTimer = 0;
+    }
+
+    private void ResetStar()
+    {
+        rb.bodyType = RigidbodyType2D.Dynamic;
         throwingStar.transform.position = firePoint.position;
         throwingStar.SetActive(true);
         rb.linearVelocity = Vector3.zero;
-        rb.AddForce(new Vector2(1 * (angle / 2) * Mathf.Sign(transform.localScale.x), angle) * force / angle);
-        rb.AddTorque(angle * 4);
-        cooldownTimer = 0;
+        
+    }
+
+    private void TeleportToStar()
+    {
+        throwScript.isThrown = false;
+        gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        gameObject.transform.position = new Vector3(throwingStar.transform.position.x, throwingStar.transform.position.y + 0.5f, gameObject.transform.position.z);
+        gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(shootDirection.x * (force + 5), shootDirection.y * force), ForceMode2D.Impulse);
     }
 }
