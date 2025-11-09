@@ -4,7 +4,7 @@ public class ThrowingStar : MonoBehaviour
 {
     private Animator anim;
     public bool isThrown = false;
-    private bool hitGround = false;
+    public bool hitGround = false;
 
     private void Awake()
     {
@@ -23,6 +23,7 @@ public class ThrowingStar : MonoBehaviour
             Debug.Log("Enemy hit");
             collision.gameObject.GetComponent<Health>().TakeDamage(1);
             gameObject.SetActive(false);
+            isThrown = false; hitGround = false;
         }
 
         if (collision.gameObject.CompareTag("Ground"))

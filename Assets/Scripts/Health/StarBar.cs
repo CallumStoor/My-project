@@ -10,13 +10,13 @@ public class StarBar : MonoBehaviour
 
     private void Start()
     {
-        totalCooldown.fillAmount = playerThrow.cooldownTimer / 2;
+        totalCooldown.fillAmount = playerThrow.cooldownTimer / playerThrow.attackCooldown;
     }
     private void Update()
     {
-        currentCooldown.fillAmount = playerThrow.cooldownTimer / 2;
+        currentCooldown.fillAmount = playerThrow.cooldownTimer / playerThrow.attackCooldown;
 
-        if(playerThrow.throwScript.isThrown == false)
+        if(playerThrow.throwScript.isThrown == false && playerThrow.throwScript.is)
         {
             avalibleIndicator.color = Color.red;
         }

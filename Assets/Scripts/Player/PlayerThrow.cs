@@ -4,7 +4,7 @@ public class PlayerThrow : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private int force = 1;
-    [SerializeField] private float attackCooldown;
+    public float attackCooldown;
 
     [Header("Components")]
     [SerializeField] private GameObject throwingStar;
@@ -13,14 +13,16 @@ public class PlayerThrow : MonoBehaviour
     private Animator starAnimator;
     private float horizontalInput; 
     public float cooldownTimer { get; private set; } = Mathf.Infinity;
-    private Rigidbody2D rb;
+    private Rigidbody2D StarRb;
+    private Rigidbody2D playerRb;
     public ThrowingStar throwScript { get; private set; }
     private Vector3 shootDirection;
 
 
     private void Awake()
     {
-        rb = throwingStar.GetComponent<Rigidbody2D>();
+        StarRb = throwingStar.GetComponent<Rigidbody2D>();
+        playerRb = gameObject.GetComponent<Rigidbody2D>();
         throwScript = throwingStar.GetComponent<ThrowingStar>();
         starAnimator = throwingStar.GetComponent<Animator>();
     }
@@ -49,29 +51,29 @@ public class PlayerThrow : MonoBehaviour
     {
         throwScript.isThrown = true;
         // ensure no leftover velocity
-        rb.linearVelocity = Vector2.zero;
-        rb.angularVelocity = 0f;
+        StarRb.linearVelocity = Vector2.zero;
+        StarRb.angularVelocity = 0f;
 
         // apply an impulse in the aim direction (changes to ForceMode2D.Impulse for immediate throw)
-        rb.AddForce( new Vector2(shootDirection.x * force, shootDirection.y * force), ForceMode2D.Impulse);
+        StarRb.AddForce( new Vector2(shootDirection.x * force, shootDirection.y * force) + (gameObject.GetComponent<Rigidbody2D>().linearVelocity / 4), ForceMode2D.Impulse);
 
         cooldownTimer = 0;
     }
 
     private void ResetStar()
     {
-        rb.bodyType = RigidbodyType2D.Dynamic;
+        StarRb.bodyType = RigidbodyType2D.Dynamic;
         throwingStar.transform.position = firePoint.position;
         throwingStar.SetActive(true);
-        rb.linearVelocity = Vector3.zero;
+        StarRb.linearVelocity = Vector3.zero;
         
     }
 
     private void TeleportToStar()
     {
         throwScript.isThrown = false;
-        gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        playerRb.linearVelocity = Vector2.zero;
         gameObject.transform.position = new Vector3(throwingStar.transform.position.x, throwingStar.transform.position.y + 0.5f, gameObject.transform.position.z);
-        gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(shootDirection.x * (force + 5), shootDirection.y * force), ForceMode2D.Impulse);
+        playerRb.AddForce(new Vector2(shootDirection.x * (force + 5), shootDirection.y * force), ForceMode2D.Impulse);
     }
 }

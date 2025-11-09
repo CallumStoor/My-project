@@ -481,7 +481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 2.27
   colliderDistance: 1.31
-  attackCooldown: 1.5
+  attackCooldown: 0.5
   enemyLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -536,6 +536,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerThrow
   force: 10
-  attackCooldown: 1.5
+  attackCooldown: 3
   throwingStar: {fileID: 2238054965398730563}
   firePoint: {fileID: 3829485302918342990}

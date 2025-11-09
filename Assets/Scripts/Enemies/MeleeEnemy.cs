@@ -11,14 +11,17 @@ public class MeleeEnemy : MonoBehaviour
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private BoxCollider2D boxCollider;
     private float cooldownTimer = Mathf.Infinity;
+    public bool canAttack { get; private set; }
     // References
     private Animator anim;
     private Health playerHealth;
     private Health enemyHealth;
+    private EnemyAI enemyAI;
     private GameManager gameManager;
 
     private void Start()
     {
+        enemyAI = GetComponent<EnemyAI>();
         anim = GetComponent<Animator>();
         enemyHealth = GetComponent<Health>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>(); 
@@ -32,11 +35,13 @@ public class MeleeEnemy : MonoBehaviour
         {
             if (isPlayerInSight())
             {
+                canAttack = true;
                 cooldownTimer = 0;
                 anim.SetTrigger("attack");
                 Debug.Log("Enemy attacks for " + damage + " damage!");
             }
-        }
+        }else canAttack = false;
+
     }
 
     private bool isPlayerInSight()

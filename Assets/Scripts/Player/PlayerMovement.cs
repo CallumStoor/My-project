@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D boxCollider;
     private float horizontalInput;
 
-
     private void Awake()
     {
         //Grab references for rigidbody and animator from object
