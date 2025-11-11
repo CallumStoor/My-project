@@ -4,15 +4,19 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Image deathScreen;
+    private Image deathScreen;
     private Health health;
     public bool isAlive { get; private set; } = true;
 
 
     private void Awake()
     {
+        if(GameObject.Find("DeathScreen") != null)
+        {
+            deathScreen = GameObject.Find("DeathScreen").GetComponent<Image>();
+            deathScreen.gameObject.SetActive(false);
+        }
         health = GameObject.Find("Player").GetComponent<Health>();
-        deathScreen.gameObject.SetActive(false);
     }
     private void Update()
     {

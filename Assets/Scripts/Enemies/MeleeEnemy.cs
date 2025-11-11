@@ -10,7 +10,7 @@ public class MeleeEnemy : MonoBehaviour
     [Header("Set Components")]
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private BoxCollider2D boxCollider;
-    private float cooldownTimer = Mathf.Infinity;
+    private float cooldownTimer = 0;
     public bool canAttack { get; private set; }
     // References
     private Animator anim;

@@ -32,7 +32,7 @@ public class MovingPlatform : MonoBehaviour
         float distance = (target - (Vector2)platform.position).magnitude;
         // Determine the next point based on the looping setting
 
-        if (distance <= 0.1f)
+        if (distance <= 0.2f)
         {
             direction *= -1;
         }

@@ -37,6 +37,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
             Jump();
+
+        if (transform.position.y <= -20)
+        {
+            GetComponent<Health>().TakeDamage(9999);
+        }
     }
 
     private void Jump()

@@ -16,11 +16,15 @@ public class StarBar : MonoBehaviour
     {
         currentCooldown.fillAmount = playerThrow.cooldownTimer / playerThrow.attackCooldown;
 
-        if(playerThrow.throwScript.isThrown == false && playerThrow.throwScript.is)
+        if(playerThrow.throwScript.isThrown == false && playerThrow.throwScript.hitGround == false)
         {
             avalibleIndicator.color = Color.red;
         }
-        else
+        else if(playerThrow.throwScript.isThrown == true && playerThrow.throwScript.hitGround == false)
+        {
+            avalibleIndicator.color = Color.yellow;
+        }
+        else if(playerThrow.throwScript.isThrown == true)
         {
             avalibleIndicator.color = Color.green;
         }

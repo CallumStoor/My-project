@@ -43,13 +43,18 @@ public class PlayerThrow : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E) && throwScript.isThrown == true)
         {
             Debug.Log(throwScript.isThrown);
-            TeleportToStar();
+            gameObject.GetComponent<Animator>().SetTrigger("teleport");
+            if (throwScript.hitGround)
+            {
+                throwingStar.SetActive(false);
+            }
         }
     }
 
     private void ThrowStar()
     {
         throwScript.isThrown = true;
+        throwScript.hitGround = false;
         // ensure no leftover velocity
         StarRb.linearVelocity = Vector2.zero;
         StarRb.angularVelocity = 0f;
@@ -69,9 +74,10 @@ public class PlayerThrow : MonoBehaviour
         
     }
 
-    private void TeleportToStar()
+    private void TeleportToStar() // called in animation event
     {
         throwScript.isThrown = false;
+        throwScript.hitGround = false;
         playerRb.linearVelocity = Vector2.zero;
         gameObject.transform.position = new Vector3(throwingStar.transform.position.x, throwingStar.transform.position.y + 0.5f, gameObject.transform.position.z);
         playerRb.AddForce(new Vector2(shootDirection.x * (force + 5), shootDirection.y * force), ForceMode2D.Impulse);

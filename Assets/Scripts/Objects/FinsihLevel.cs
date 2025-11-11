@@ -15,6 +15,7 @@ public class FinsihLevel : MonoBehaviour
 
             gameManager.Invoke("NextScene", 1);
             collision.GetComponent<PlayerMovement>().enabled = false;
+            collision.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
 
         }
     }
