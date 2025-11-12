@@ -4,18 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private Image deathScreen;
+    [SerializeField] private Image deathScreen;
     private Health health;
     public bool isAlive { get; private set; } = true;
 
 
     private void Awake()
     {
-        if(GameObject.Find("DeathScreen") != null)
-        {
-            deathScreen = GameObject.Find("DeathScreen").GetComponent<Image>();
-            deathScreen.gameObject.SetActive(false);
-        }
         health = GameObject.Find("Player").GetComponent<Health>();
     }
     private void Update()
@@ -25,6 +20,7 @@ public class GameManager : MonoBehaviour
             isAlive = false;
             deathScreen.gameObject.SetActive(true);
         }
+
         if(Input.GetKey(KeyCode.Escape))
         {
             ReloadLevel();

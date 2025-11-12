@@ -19,22 +19,36 @@ public class PlayerMovement : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
     }
 
-    private void Update()
+
+    private void FixedUpdate()
     {
         horizontalInput = Input.GetAxis("Horizontal");
+        
+        // Always set the horizontal velocity, even when input is 0
+        body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+    }
+
+    private void Update()
+    {
+       
 
         //Flip player when moving left-right
         if (horizontalInput > 0.01f)
+        {
             transform.localScale = Vector3.one;
+        }
         else if (horizontalInput < -0.01f)
+        {
             transform.localScale = new Vector3(-1, 1, 1);
+        }
+
+
 
         //Set animator parameters
         anim.SetBool("run", horizontalInput != 0);
         anim.SetBool("isGrounded", isGrounded());
 
-        body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
-
+        
         if (Input.GetKey(KeyCode.Space))
             Jump();
 

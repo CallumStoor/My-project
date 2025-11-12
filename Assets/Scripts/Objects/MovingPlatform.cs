@@ -24,8 +24,6 @@ public class MovingPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         Vector2 target = currentMovementTarget();
         platform.position = Vector2.Lerp(platform.position, target, speed * Time.deltaTime);
 
@@ -36,9 +34,6 @@ public class MovingPlatform : MonoBehaviour
         {
             direction *= -1;
         }
-        
-
-
     }
 
 

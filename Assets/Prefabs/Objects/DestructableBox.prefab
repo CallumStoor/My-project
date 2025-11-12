@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7552358320850697083}
   - component: {fileID: 8187228122333602513}
   - component: {fileID: 7240118821074088162}
+  - component: {fileID: 5771883713890109169}
   m_Layer: 11
   m_Name: DestructableBox
   m_TagString: Enemy
@@ -105,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c34d0cfb6746f640b464515debc934e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  startingHealth: 2
+  startingHealth: 1
   iFramesDuration: 0.5
   numberOfFlashes: 2
 --- !u!50 &8187228122333602513
@@ -181,3 +182,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.0507812, y: 0.92578125}
   m_EdgeRadius: 0
+--- !u!95 &5771883713890109169
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408611975009764547}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 272a3ce54a7697a47ab3baef43dd3d9a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

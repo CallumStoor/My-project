@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
     [Header("Health")]
     [SerializeField] private float startingHealth;
     public float currentHealth { get; private set; }
-    private Animator anim;
+    private Animator anim = null;
     private bool dead;
 
     [Header("iFrames")]
@@ -18,7 +18,8 @@ public class Health : MonoBehaviour
     private void Awake()
     {
         currentHealth = startingHealth;
-        anim = GetComponent<Animator>();
+        if(gameObject.GetComponent<Animator>() != null)
+            anim = GetComponent<Animator>();
         spriteRend = GetComponent<SpriteRenderer>();
     }
     public void TakeDamage(float _damage)
@@ -38,6 +39,8 @@ public class Health : MonoBehaviour
                 gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                 gameObject.GetComponent<BoxCollider2D>().enabled = false;
                 anim.SetTrigger("die");
+                if(!gameObject.CompareTag("Player"))
+                    spriteRend.enabled = false;
 
                 dead = true;
             }

@@ -35,16 +35,13 @@ public class EnemyAI : MonoBehaviour
             {
                 Debug.Log("Enemy Jumped");
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 7f);
-            }
-            
+            }          
         }
         else
         {
             anim.SetBool("run", false);
             rb.linearVelocity = Vector2.zero;
         }
-        
-
     }
 
     private bool CanJump()
@@ -64,8 +61,4 @@ public class EnemyAI : MonoBehaviour
         else
             return 1;
     }
-
-
-
-
 }
